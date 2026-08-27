@@ -1,0 +1,162 @@
+.app-footer {
+    width: 100%;
+    margin-top: 4rem;
+    padding: 2.5rem 2rem 2rem 2rem;
+    background: linear-gradient(180deg, rgba(13, 19, 33, 0.4) 0%, rgba(8, 12, 20, 0.95) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border-color);
+    position: relative;
+    z-index: 10;
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+
+        .footer-brand-section {
+            .footer-motto {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-size: 0.82rem;
+                font-weight: 700;
+                letter-spacing: 1.2px;
+                color: #F59E0B;
+                background: rgba(245, 158, 11, 0.08);
+                border: 1px solid rgba(245, 158, 11, 0.25);
+                padding: 0.4rem 1.2rem;
+                border-radius: var(--radius-full);
+                box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+
+                .motto-icon {
+                    color: #EF4444;
+                }
+            }
+        }
+
+        .footer-creator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+
+            .creator-text {
+                font-size: 1.05rem;
+                font-weight: 500;
+                color: var(--text-secondary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.4rem;
+
+                .heart-icon {
+                    color: #EF4444;
+                    fill: #EF4444;
+                    animation: pulse-heart 1.5s infinite ease-in-out;
+                }
+
+                .creator-name {
+                    font-weight: 700;
+                    color: #FFFFFF;
+                    background: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    letter-spacing: 0.2px;
+                    position: relative;
+                }
+            }
+
+            .platform-tag {
+                font-size: 0.75rem;
+                color: var(--text-dim);
+                font-weight: 500;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        .footer-tech-stack {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding-top: 0.5rem;
+
+            .stack-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: var(--text-dim);
+                letter-spacing: 1px;
+            }
+
+            .tech-pills-list {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+
+                .tech-pill {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.35rem;
+                    padding: 0.3rem 0.65rem;
+                    background: rgba(255, 255, 255, 0.04);
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--radius-sm);
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    color: var(--text-secondary);
+                    transition: all 0.2s ease;
+
+                    .tech-icon {
+                        color: var(--tech-color, var(--primary));
+                    }
+
+                    &:hover {
+                        background: rgba(255, 255, 255, 0.08);
+                        border-color: var(--tech-color, var(--primary));
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes pulse-heart {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.25);
+    }
+}
+
+@media (max-width: 768px) {
+    .app-footer {
+        padding: 2rem 1rem;
+
+        .footer-content {
+            .footer-motto {
+                font-size: 0.72rem;
+                padding: 0.35rem 0.8rem;
+            }
+
+            .footer-tech-stack {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    }
+}

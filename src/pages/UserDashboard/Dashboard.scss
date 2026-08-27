@@ -1,0 +1,118 @@
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    position: relative;
+
+    .dashboard-main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        overflow-y: auto;
+        position: relative;
+        z-index: 1;
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.25rem 3rem 2rem 3rem;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(13, 19, 33, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            gap: 1.5rem;
+            flex-wrap: wrap;
+
+            @media (max-width: 900px) {
+                padding: 1.5rem;
+            }
+
+            .header-greeting {
+                .athlete-tag {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.35rem;
+                    font-size: 0.72rem;
+                    font-weight: 800;
+                    letter-spacing: 1px;
+                    color: var(--accent-cyan);
+                    background: rgba(6, 182, 212, 0.12);
+                    border: 1px solid rgba(6, 182, 212, 0.3);
+                    padding: 0.2rem 0.6rem;
+                    border-radius: var(--radius-full);
+                    margin-bottom: 0.5rem;
+
+                    .tag-sparkle {
+                        color: #38BDF8;
+                    }
+                }
+
+                h1 {
+                    font-size: 1.85rem;
+                    font-weight: 800;
+                    letter-spacing: -0.5px;
+                    color: #FFFFFF;
+                    margin-bottom: 0.35rem;
+
+                    .highlight-name {
+                        background: linear-gradient(135deg, #6366F1 0%, #38BDF8 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
+                }
+
+                p {
+                    color: var(--text-muted);
+                    font-size: 0.95rem;
+                }
+            }
+
+            .header-motivation-pill {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.75rem 1.25rem;
+                background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(239, 68, 68, 0.1) 100%);
+                border: 1px solid rgba(245, 158, 11, 0.3);
+                border-radius: var(--radius);
+                box-shadow: 0 0 15px rgba(245, 158, 11, 0.12);
+
+                .flame-icon {
+                    color: #EF4444;
+                    animation: flame-pulse 2s infinite ease-in-out;
+                }
+
+                .pill-text {
+                    display: flex;
+                    flex-direction: column;
+
+                    strong {
+                        font-size: 0.65rem;
+                        font-weight: 800;
+                        letter-spacing: 0.8px;
+                        color: #F59E0B;
+                    }
+
+                    span {
+                        font-size: 0.82rem;
+                        font-style: italic;
+                        font-weight: 600;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+
+        .dashboard-workspace {
+            padding: 2.5rem 3rem;
+            flex: 1;
+
+            @media (max-width: 900px) {
+                padding: 1.5rem 1rem;
+            }
+        }
+    }
+}
