@@ -5,6 +5,13 @@
     color: var(--text-main);
     position: relative;
 
+    /* 👇 MOBILE VIEW FIX 👇 */
+    @media (max-width: 900px) {
+        flex-direction: column;
+    }
+
+    /* 👆 --------------- 👆 */
+
     .profile-main-content {
         flex: 1;
         display: flex;
