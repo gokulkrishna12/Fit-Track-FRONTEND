@@ -230,10 +230,13 @@
 }
 
 @keyframes flame-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 0.9;
     }
+
     50% {
         transform: scale(1.15);
         opacity: 1;
@@ -247,6 +250,16 @@
         position: relative;
         border-right: none;
         border-bottom: 1px solid var(--border-color);
-        padding: 1rem;
+        padding: 1.25rem 1rem;
+
+        /* Makes the top header more compact on mobile */
+        .sidebar-brand {
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+        }
+
+        .sidebar-footer {
+            margin-top: 1.5rem;
+        }
     }
 }

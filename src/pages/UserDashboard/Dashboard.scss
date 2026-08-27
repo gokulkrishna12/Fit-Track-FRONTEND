@@ -5,6 +5,11 @@
     color: var(--text-main);
     position: relative;
 
+    /* Mobile-kku layout-a thalaikela (column-ah) maathum code */
+    @media (max-width: 900px) {
+        flex-direction: column;
+    }
+
     .dashboard-main-content {
         flex: 1;
         display: flex;
