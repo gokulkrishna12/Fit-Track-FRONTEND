@@ -1,16 +1,26 @@
-# React + Vite
+# Fit-Track Pro Gym - Frontend 🏋️‍♂️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, modern, and fully responsive frontend application for the Fit-Track Gym management system. Built to help athletes track their workouts, view daily statistics, and monitor their fitness journey.
 
-Currently, two official plugins are available:
+## 🌟 Features
+- **Dynamic Dashboard:** Real-time stats, volume summaries, and workout streaks.
+- **Workout Tracking:** Log exercises, reps, and weights seamlessly.
+- **Mobile Responsive:** Perfectly optimized for both desktop and mobile screens.
+- **Secure Authentication:** JWT-based user login and registration.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
+- **Framework:** React.js + Vite
+- **Styling:** SCSS (Sass)
+- **Routing:** React Router DOM
+- **Icons:** Lucide React
+- **Deployment:** Vercel
 
-## React Compiler
+## 🔗 Links
+- **Live Application:** https://fit-track-frontend-delta.vercel.app/profile
+- **Backend API:** `https://fit-track-backend-02ef.onrender.com`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Local Setup
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/yourusername/Fit-Track-FRONTEND.git](https://github.com/yourusername/Fit-Track-FRONTEND.git)
