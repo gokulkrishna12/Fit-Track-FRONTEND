@@ -1,26 +1,48 @@
-# Fit-Track Pro Gym - Frontend 🏋️‍♂️
+# 🏋️‍♂️ Fit-Track Pro Gym (Frontend)
 
-A sleek, modern, and fully responsive frontend application for the Fit-Track Gym management system. Built to help athletes track their workouts, view daily statistics, and monitor their fitness journey.
+> **Designed and Developed by Gokulkrishna** 🚀
 
-## 🌟 Features
-- **Dynamic Dashboard:** Real-time stats, volume summaries, and workout streaks.
-- **Workout Tracking:** Log exercises, reps, and weights seamlessly.
-- **Mobile Responsive:** Perfectly optimized for both desktop and mobile screens.
-- **Secure Authentication:** JWT-based user login and registration.
+The sleek, modern, and fully responsive frontend application for the Fit-Track Gym management system. Built to help athletes track their workouts, view daily statistics, and monitor their fitness journey across all devices.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js + Vite
-- **Styling:** SCSS (Sass)
+## 🌐 Live Application
+**Explore the App:** [https://fit-track-frontend-delta.vercel.app](https://fit-track-frontend-delta.vercel.app)
+
+## ✨ Key Features
+- **📊 Advanced Analytics Dashboard:** Real-time stats, volume summaries, and workout streaks.
+- **📱 100% Mobile Responsive:** Custom-crafted SCSS ensuring perfect UI on all screens.
+- **🔐 Secure Authentication:** Seamless JWT-based user login and registration flow.
+- **📝 Dynamic Workout Logging:** Create, edit, and delete daily workout routines easily.
+- **🎨 Modern UI/UX:** Glassmorphism effects, gradient badges, and smooth animations.
+
+## 🛠️ Technology Stack
+- **Core:** React.js (v18), Vite
+- **Styling:** SCSS (SASS) with CSS Variables
 - **Routing:** React Router DOM
 - **Icons:** Lucide React
 - **Deployment:** Vercel
 
-## 🔗 Links
-- **Live Application:** https://fit-track-frontend-delta.vercel.app/profile
-- **Backend API:** `https://fit-track-backend-02ef.onrender.com`
-
-## 🚀 Local Setup
+## ⚙️ Local Development Setup
 
 1. **Clone the repository:**
+2. ```bash
+   git clone [https://github.com/gokulkrishna12/Fit-Track-FRONTEND.git](https://github.com/gokulkrishna12/Fit-Track-FRONTEND.git)
+   cd Fit-Track-FRONTEND
+
+Install dependencies:
+
+Bash
+npm install
+Set up Environment Variables:
+Create a .env file in the root directory and add:
+
+Code snippet
+VITE_API_URL=[https://fit-track-backend-02ef.onrender.com](https://fit-track-backend-02ef.onrender.com)
+Run the development server:
+
+Bash
+npm run dev
+
+🧑‍💻 Author: Gokulkrishna
    ```bash
-   git clone [https://github.com/yourusername/Fit-Track-FRONTEND.git](https://github.com/yourusername/Fit-Track-FRONTEND.git)
+   git clone [https://github.com/gokulkrishna12/Fit-Track-FRONTEND.git](https://github.com/gokulkrishna12/Fit-Track-FRONTEND.git)
+   cd Fit-Track-FRONTEND
