@@ -5,7 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recha
 
 const AnalyticsChart = () => {
     // RTK Query handles the fetch, caching, and loading state automatically!
-    const { data, isLoading, isError } = useGetAnalyticsQuery();
+    const { data, isLoading, isError, error } = useGetAnalyticsQuery();
 
     if (isLoading) {
         return (
@@ -15,21 +15,39 @@ const AnalyticsChart = () => {
         );
     }
 
+    // 👇 WE REMOVED "return null" SO WE CAN SEE THE ACTUAL ERROR 👇
     if (isError) {
-        return null; // Fail silently if analytics can't load, so it doesn't break the dashboard
+        console.error("Analytics Fetch Error:", error);
+        return (
+            <div style={{
+                padding: '2rem', textAlign: 'center', color: '#EF4444',
+                background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)',
+                borderRadius: '12px', marginBottom: '2rem'
+            }}>
+                <strong>Backend API Error:</strong> The frontend cannot reach the /analytics endpoint.
+                <br />
+                <em>(Check your Render dashboard to make sure the backend successfully deployed the latest commit!)</em>
+            </div>
+        );
     }
 
-    // Extract the weekly trend from our MongoDB response
     const weeklyData = data?.data?.weeklyTrend;
 
-    // If no data exists yet, don't show the chart
+    // 👇 SHOW A MESSAGE IF NO DATA INSTEAD OF HIDING 👇
     if (!weeklyData || weeklyData.length === 0) {
-        return null;
+        return (
+            <div style={{
+                padding: '2rem', textAlign: 'center', color: '#F59E0B',
+                background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)',
+                borderRadius: '12px', marginBottom: '2rem'
+            }}>
+                No workout volume found for the past 7 days to generate the chart. Log a new workout below!
+            </div>
+        );
     }
 
-    // Format data for Recharts
     const chartData = weeklyData.map(item => ({
-        date: item._id, // The YYYY-MM-DD date string
+        date: item._id,
         volume: item.dailyVolume
     }));
 
@@ -80,7 +98,7 @@ const AnalyticsChart = () => {
                         />
                         <Bar
                             dataKey="volume"
-                            fill="#6366F1" // Uses your existing primary indigo color
+                            fill="#6366F1"
                             radius={[4, 4, 0, 0]}
                         />
                     </BarChart>

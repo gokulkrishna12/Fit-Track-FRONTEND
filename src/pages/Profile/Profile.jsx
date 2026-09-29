@@ -28,6 +28,9 @@ const Profile = () => {
     const [editingId, setEditingId] = useState(null);
     const [editForm, setEditForm] = useState({ exerciseName: '', sets: '', reps: '', weight: '', date: '' });
 
+    // 👇 NEW: Custom Modal State 👇
+    const [deleteModal, setDeleteModal] = useState({ isOpen: false, workoutId: null });
+
     // Fetch user workouts on component load
     useEffect(() => {
         const fetchWorkouts = async () => {
@@ -50,10 +53,15 @@ const Profile = () => {
         fetchWorkouts();
     }, []);
 
-    // Delete workout action with Confirmation
-    const handleDeleteWorkout = async (id) => {
-        const isConfirmed = window.confirm("Are you sure you want to delete this workout? This action cannot be undone.");
-        if (!isConfirmed) return;
+    // 👇 NEW: Trigger Custom Modal instead of window.confirm 👇
+    const handleDeleteClick = (id) => {
+        setDeleteModal({ isOpen: true, workoutId: id });
+    };
+
+    // 👇 NEW: Execute the deletion from the Modal 👇
+    const confirmDelete = async () => {
+        const id = deleteModal.workoutId;
+        setDeleteModal({ isOpen: false, workoutId: null }); // Close modal immediately
 
         try {
             await API.delete(`/workouts/${id}`);
@@ -213,6 +221,55 @@ const Profile = () => {
             <Sidebar />
 
             <main className="profile-main-content">
+                {/* 👇 Custom Glassmorphism Delete Modal 👇 */}
+                {deleteModal.isOpen && (
+                    <div style={{
+                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                        backgroundColor: 'rgba(8, 12, 20, 0.75)', backdropFilter: 'blur(8px)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999
+                    }}>
+                        <div style={{
+                            background: 'rgba(30, 41, 59, 0.85)', padding: '2.5rem 2rem', borderRadius: '16px',
+                            border: '1px solid rgba(239, 68, 68, 0.25)', maxWidth: '400px', width: '90%',
+                            boxShadow: '0 20px 40px rgba(0,0,0,0.4)', textAlign: 'center'
+                        }}>
+                            <div style={{ color: '#EF4444', marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
+                                <div style={{ background: 'rgba(239,68,68,0.1)', padding: '1rem', borderRadius: '50%' }}>
+                                    <Trash2 size={32} />
+                                </div>
+                            </div>
+                            <h3 style={{ color: '#FFFFFF', fontSize: '1.3rem', fontWeight: '700', marginBottom: '0.5rem' }}>
+                                Delete Workout?
+                            </h3>
+                            <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginBottom: '2rem', lineHeight: '1.5' }}>
+                                Are you sure you want to delete this workout? This action cannot be undone.
+                            </p>
+                            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                                <button
+                                    onClick={() => setDeleteModal({ isOpen: false, workoutId: null })}
+                                    style={{
+                                        flex: 1, padding: '0.8rem', background: 'transparent', color: '#E2E8F0',
+                                        border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', cursor: 'pointer',
+                                        fontWeight: '600', transition: 'background 0.2s'
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={confirmDelete}
+                                    style={{
+                                        flex: 1, padding: '0.8rem', background: 'rgba(239, 68, 68, 0.15)', color: '#F87171',
+                                        border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: '8px', cursor: 'pointer',
+                                        fontWeight: '600', transition: 'background 0.2s'
+                                    }}
+                                >
+                                    Yes, Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 <div className="profile-header-banner">
                     <div className="user-hero-card">
                         <div className="hero-avatar-wrapper">
@@ -490,7 +547,8 @@ const Profile = () => {
                                                                             <button className="icon-btn edit-btn" onClick={() => handleEditClick(workout)} title="Edit">
                                                                                 <Edit2 size={15} />
                                                                             </button>
-                                                                            <button className="icon-btn delete-btn" onClick={() => handleDeleteWorkout(workout._id)} title="Delete">
+                                                                            {/* 👇 NEW: Calls custom Modal 👇 */}
+                                                                            <button className="icon-btn delete-btn" onClick={() => handleDeleteClick(workout._id)} title="Delete">
                                                                                 <Trash2 size={15} />
                                                                             </button>
                                                                         </div>
