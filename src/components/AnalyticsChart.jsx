@@ -1,109 +1,87 @@
 // src/components/AnalyticsChart.jsx
 import React from 'react';
 import { useGetAnalyticsQuery } from '../store/apiSlice';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { Activity } from 'lucide-react';
 
 const AnalyticsChart = () => {
-    // RTK Query handles the fetch, caching, and loading state automatically!
-    const { data, isLoading, isError, error } = useGetAnalyticsQuery();
+    const { data, isLoading, isError } = useGetAnalyticsQuery();
 
     if (isLoading) {
         return (
-            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted, #94a3b8)' }}>
-                Loading Analytics...
+            <div style={{ padding: '4rem', textAlign: 'center', color: '#38BDF8', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                <Activity size={32} style={{ animation: 'spin 2s linear infinite' }} />
+                <span>Loading Market Data...</span>
             </div>
         );
     }
 
-    // 👇 WE REMOVED "return null" SO WE CAN SEE THE ACTUAL ERROR 👇
-    if (isError) {
-        console.error("Analytics Fetch Error:", error);
+    if (isError || !data?.data?.weeklyTrend || data.data.weeklyTrend.length === 0) {
         return (
-            <div style={{
-                padding: '2rem', textAlign: 'center', color: '#EF4444',
-                background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)',
-                borderRadius: '12px', marginBottom: '2rem'
-            }}>
-                <strong>Backend API Error:</strong> The frontend cannot reach the /analytics endpoint.
-                <br />
-                <em>(Check your Render dashboard to make sure the backend successfully deployed the latest commit!)</em>
+            <div style={{ padding: '3rem', textAlign: 'center', color: '#94a3b8', background: 'rgba(30, 41, 59, 0.3)', borderRadius: '12px', border: '1px dashed #334155' }}>
+                No trading volume detected yet. Hit the gym to start generating data!
             </div>
         );
     }
 
-    const weeklyData = data?.data?.weeklyTrend;
-
-    // 👇 SHOW A MESSAGE IF NO DATA INSTEAD OF HIDING 👇
-    if (!weeklyData || weeklyData.length === 0) {
-        return (
-            <div style={{
-                padding: '2rem', textAlign: 'center', color: '#F59E0B',
-                background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)',
-                borderRadius: '12px', marginBottom: '2rem'
-            }}>
-                No workout volume found for the past 7 days to generate the chart. Log a new workout below!
-            </div>
-        );
-    }
-
-    const chartData = weeklyData.map(item => ({
+    const chartData = data.data.weeklyTrend.map(item => ({
         date: item._id,
         volume: item.dailyVolume
     }));
 
     return (
-        <div style={{
-            background: 'rgba(18, 24, 38, 0.85)',
-            backdropFilter: 'blur(20px)',
-            padding: '1.5rem',
-            borderRadius: '12px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            marginBottom: '2rem',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
-        }}>
-            <h3 style={{
-                color: '#FFFFFF',
-                marginBottom: '1.5rem',
-                fontSize: '1.2rem',
-                fontWeight: '600'
-            }}>
-                🔥 Weekly Volume Trend
-            </h3>
+        <div style={{ width: '100%', height: 400, marginTop: '2rem' }}>
+            <ResponsiveContainer>
+                <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <defs>
+                        {/* The Trading App Gradient Effect */}
+                        <linearGradient id="colorVolume" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#06B6D4" stopOpacity={0.6} />
+                            <stop offset="95%" stopColor="#06B6D4" stopOpacity={0.0} />
+                        </linearGradient>
+                    </defs>
 
-            <div style={{ width: '100%', height: 250 }}>
-                <ResponsiveContainer>
-                    <BarChart data={chartData}>
-                        <XAxis
-                            dataKey="date"
-                            stroke="#64748b"
-                            fontSize={12}
-                            tickLine={false}
-                            axisLine={false}
-                        />
-                        <YAxis
-                            stroke="#64748b"
-                            fontSize={12}
-                            tickLine={false}
-                            axisLine={false}
-                            tickFormatter={(value) => `${value}kg`}
-                        />
-                        <Tooltip
-                            cursor={{ fill: 'rgba(99, 102, 241, 0.1)' }}
-                            contentStyle={{
-                                backgroundColor: '#0f172a',
-                                border: '1px solid #334155',
-                                borderRadius: '8px',
-                                color: '#fff'
-                            }}
-                        />
-                        <Bar
-                            dataKey="volume"
-                            fill="#6366F1"
-                            radius={[4, 4, 0, 0]}
-                        />
-                    </BarChart>
-                </ResponsiveContainer>
-            </div>
+                    {/* Techy Grid Lines */}
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
+
+                    <XAxis
+                        dataKey="date"
+                        stroke="#64748b"
+                        fontSize={12}
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={10}
+                    />
+                    <YAxis
+                        stroke="#64748b"
+                        fontSize={12}
+                        tickLine={false}
+                        axisLine={false}
+                        tickFormatter={(value) => `${value}kg`}
+                    />
+                    <Tooltip
+                        contentStyle={{
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            border: '1px solid #06B6D4',
+                            borderRadius: '8px',
+                            color: '#fff',
+                            boxShadow: '0 4px 20px rgba(6, 182, 212, 0.2)'
+                        }}
+                        itemStyle={{ color: '#06B6D4', fontWeight: 'bold' }}
+                    />
+
+                    {/* Smooth glowing line with gradient area */}
+                    <Area
+                        type="monotone"
+                        dataKey="volume"
+                        stroke="#06B6D4"
+                        strokeWidth={4}
+                        fillOpacity={1}
+                        fill="url(#colorVolume)"
+                        animationDuration={1500}
+                    />
+                </AreaChart>
+            </ResponsiveContainer>
         </div>
     );
 };

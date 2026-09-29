@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Flame, Sparkles } from 'lucide-react';
 import WorkoutForm from '../../components/WorkoutForm/WorkoutForm';
@@ -6,9 +6,6 @@ import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Footer from '../../components/Footer/Footer';
 import './Dashboard.scss';
-
-// 👇 CRITICAL FIX: The lazy import MUST be outside the component function! 👇
-const AnalyticsChart = lazy(() => import('../../components/AnalyticsChart'));
 
 const Dashboard = () => {
     const { user } = useAuth();
@@ -25,11 +22,6 @@ const Dashboard = () => {
 
             {/* Main Content Area */}
             <main className="dashboard-main-content">
-                {/* Analytics Chart Section */}
-                <Suspense fallback={<div style={{ color: '#94a3b8', padding: '1rem', textAlign: 'center' }}>Loading Charts...</div>}>
-                    <AnalyticsChart />
-                </Suspense>
-
                 {/* Header Banner */}
                 <header className="dashboard-header">
                     <div className="header-greeting">
