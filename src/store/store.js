@@ -1,11 +1,14 @@
 // src/store/store.js
 import { configureStore } from '@reduxjs/toolkit';
+import { apiSlice } from './apiSlice'; // 👇 Import the new API slice
 
 export const store = configureStore({
     reducer: {
-        // We will add the RTK Query API slice here in Phase 6
+        // 👇 Add the generated reducer as a specific top-level slice
+        [apiSlice.reducerPath]: apiSlice.reducer,
     },
-    // Adding middleware is required for RTK Query caching & polling features later
+
+    // 👇 Attach the API middleware to enable caching, invalidation, and polling
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware(),
+        getDefaultMiddleware().concat(apiSlice.middleware),
 });
