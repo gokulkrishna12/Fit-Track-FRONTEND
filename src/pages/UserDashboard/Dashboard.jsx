@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Flame, Dumbbell, Sparkles, TrendingUp } from 'lucide-react';
 import WorkoutForm from '../../components/WorkoutForm/WorkoutForm';
@@ -6,6 +6,7 @@ import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Footer from '../../components/Footer/Footer';
 import './Dashboard.scss';
+
 
 const Dashboard = () => {
     const { user } = useAuth();
@@ -15,6 +16,8 @@ const Dashboard = () => {
         setWorkouts([newWorkout, ...workouts]);
     };
 
+    const AnalyticsChart = lazy(() => import('../../components/AnalyticsChart'));
+
     return (
         <div className="dashboard-layout">
             {/* Modular Gym Sidebar */}
@@ -22,6 +25,11 @@ const Dashboard = () => {
 
             {/* Main Content Area */}
             <main className="dashboard-main-content">
+                {/* Analytics Chart Section */}
+                <Suspense fallback={<div style={{ color: '#94a3b8', padding: '1rem' }}>Loading Charts...</div>}>
+                    <AnalyticsChart />
+                </Suspense>
+
                 {/* Header Banner */}
                 <header className="dashboard-header">
                     <div className="header-greeting">
