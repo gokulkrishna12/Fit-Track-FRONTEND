@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, User, LogOut, Dumbbell, Flame, Sparkles } from 'lucide-react';
+import { LayoutDashboard, User, LogOut, Dumbbell, Flame, Sparkles, TrendingUp } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './Sidebar.scss';
 
@@ -37,7 +37,7 @@ const Sidebar = () => {
             {/* Navigation Menu */}
             <nav className="sidebar-nav">
                 <div className="nav-section-label">MAIN NAVIGATION</div>
-                
+
                 <NavLink
                     to="/dashboard"
                     className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
@@ -56,6 +56,17 @@ const Sidebar = () => {
                         <User size={20} />
                     </div>
                     <span>Profile & History</span>
+                </NavLink>
+
+                {/* 👇 NEW ANALYTICS BUTTON 👇 */}
+                <NavLink
+                    to="/analytics"
+                    className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                >
+                    <div className="link-icon-box">
+                        <TrendingUp size={20} />
+                    </div>
+                    <span>Analytics</span>
                 </NavLink>
             </nav>
 
