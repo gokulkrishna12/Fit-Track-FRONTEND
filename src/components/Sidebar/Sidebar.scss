@@ -303,3 +303,66 @@
         }
     }
 }
+
+/* 📱 MOBILE BOTTOM NAVIGATION TRANSFORMATION 📱 */
+@media (max-width: 900px) {
+    .app-sidebar {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        position: fixed;
+        top: auto;
+        /* 👈 THE CRITICAL FIX: Releases the top anchor */
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0.75rem 0.5rem;
+        background: rgba(13, 19, 33, 0.95);
+        border-right: none;
+        border-top: 1px solid var(--border-color);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+
+        /* Hide Top Brand Info on Mobile */
+        .sidebar-brand,
+        .nav-section-label,
+        .sidebar-footer {
+            display: none;
+        }
+
+        .sidebar-nav {
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            gap: 0;
+
+            .nav-link {
+                flex-direction: column;
+                gap: 0.3rem;
+                padding: 0.5rem;
+                border-radius: 8px;
+                border: none;
+                background: transparent;
+                box-shadow: none;
+                flex: 1;
+                text-align: center;
+
+                span {
+                    font-size: 0.65rem;
+                }
+
+                &.active {
+                    background: transparent;
+                    border-left: none;
+                    color: var(--primary);
+
+                    .link-icon-box {
+                        color: var(--primary);
+                    }
+                }
+            }
+        }
+    }
+}

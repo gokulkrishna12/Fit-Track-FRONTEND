@@ -7,7 +7,7 @@ import { TrendingUp, BarChart2 } from 'lucide-react';
 
 const Analytics = () => {
     return (
-        <div className="dashboard-layout" style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#0D1321' }}>
+        <div className="dashboard-layout">
             <Sidebar />
 
             <main style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column' }}>
