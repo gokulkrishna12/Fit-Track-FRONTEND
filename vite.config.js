@@ -10,25 +10,23 @@ export default defineConfig({
     css: true,
   },
   esbuild: {
-    drop: ['console', 'debugger'],
+    drop: ['console', 'debugger'], // Strips out logs for smaller KB
   },
   build: {
     target: 'esnext',
     cssCodeSplit: true,
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        // 👇 PERFORMANCE FIX: Surgical chunking to unblock the main thread 👇
+        // 👇 NUCLEAR CHUNKING: Forces HTTP/2 parallel downloading 👇
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            // Split out the icons
-            if (id.includes('lucide-react')) {
-              return 'icons';
-            }
-            // Split out core React dependencies
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-              return 'vendor';
-            }
-            // Note: We leave recharts and redux alone so Vite dynamically imports them only when needed!
+            if (id.includes('socket.io')) return 'vendor-socket';
+            if (id.includes('@reduxjs') || id.includes('react-redux')) return 'vendor-redux';
+            if (id.includes('recharts') || id.includes('d3')) return 'vendor-charts';
+            if (id.includes('lucide-react')) return 'vendor-icons';
+            if (id.includes('react/') || id.includes('react-dom/') || id.includes('react-router')) return 'vendor-react';
+            return 'vendor-core';
           }
         }
       }

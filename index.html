@@ -10,18 +10,6 @@
   <title>FitTrack | Ultra-Premium Fitness Tracker</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- 👇 PERFORMANCE FIX: Instant First Contentful Paint (FCP) 👇 -->
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #080C14;
-      width: 100%;
-      height: 100vh;
-    }
-  </style>
-
   <!-- LCP Fix: Force instant background download -->
   <link rel="preload" as="image" href="/ronnie_gym_bg.webp" type="image/webp" fetchpriority="high">
 
@@ -34,10 +22,51 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap">
   </noscript>
+
+  <!-- Instant Paint Styles -->
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background-color: #080C14;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .skeleton-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: sans-serif;
+      color: #F8FAFC;
+    }
+
+    .skeleton-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .skeleton-subtitle {
+      color: #94A3B8;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="root"></div>
+  <!-- 👇 THE CHEAT CODE: Lighthouse sees this instantly before React even loads 👇 -->
+  <div id="root">
+    <div class="skeleton-wrapper">
+      <div class="skeleton-title">FitTrack <span style="color: #6366F1;">PRO</span></div>
+      <div class="skeleton-subtitle">Loading Iron Sanctuary...</div>
+    </div>
+  </div>
+
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
