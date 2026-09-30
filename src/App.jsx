@@ -6,10 +6,13 @@ import { useDispatch } from 'react-redux';
 import { apiSlice } from './store/apiSlice';
 import ErrorBoundary from './components/ErrorBoundary';
 
-const Auth = lazy(() => import('./pages/Auth/Auth'));
+// 👇 PERFORMANCE FIX: Import Auth statically so it paints instantly!
+import Auth from './pages/Auth/Auth';
+
+// Keep the heavy pages lazy-loaded
 const Dashboard = lazy(() => import('./pages/UserDashboard/Dashboard'));
 const Profile = lazy(() => import('./pages/Profile/Profile'));
-const Analytics = lazy(() => import('./pages/Analytics/Analytics')); // 👇 NEW ANALYTICS PAGE ROUTE 👇
+const Analytics = lazy(() => import('./pages/Analytics/Analytics'));
 
 function App() {
   const { user } = useAuth();
@@ -44,10 +47,12 @@ function App() {
           </div>
         }>
           <Routes>
+            {/* The Auth page now loads immediately without Suspense delays */}
             <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Auth />} />
+
             <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" replace />} />
             <Route path="/profile" element={user ? <Profile /> : <Navigate to="/" replace />} />
-            <Route path="/analytics" element={user ? <Analytics /> : <Navigate to="/" replace />} /> {/* 👇 ADDED ROUTE 👇 */}
+            <Route path="/analytics" element={user ? <Analytics /> : <Navigate to="/" replace />} />
             <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
           </Routes>
         </Suspense>
