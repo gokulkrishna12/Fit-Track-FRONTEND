@@ -248,129 +248,6 @@
 @media (max-width: 900px) {
     .app-sidebar {
         width: 100%;
-        min-height: auto;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        z-index: 999;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        padding: 0.75rem 0.5rem;
-        background: rgba(13, 19, 33, 0.95);
-        border-right: none;
-        border-top: 1px solid var(--border-color);
-        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
-
-        /* Hide Top Brand Info on Mobile */
-        .sidebar-brand,
-        .nav-section-label,
-        .sidebar-footer {
-            display: none;
-        }
-
-        .sidebar-nav {
-            flex-direction: row;
-            justify-content: space-around;
-            width: 100%;
-            gap: 0;
-
-            .nav-link {
-                flex-direction: column;
-                gap: 0.3rem;
-                padding: 0.5rem;
-                border-radius: 8px;
-                border: none;
-                background: transparent;
-                box-shadow: none;
-                flex: 1;
-                text-align: center;
-
-                span {
-                    font-size: 0.65rem;
-                }
-
-                &.active {
-                    background: transparent;
-                    border-left: none;
-                    color: var(--primary);
-
-                    .link-icon-box {
-                        color: var(--primary);
-                    }
-                }
-            }
-        }
-    }
-}
-
-/* 📱 MOBILE BOTTOM NAVIGATION TRANSFORMATION 📱 */
-@media (max-width: 900px) {
-    .app-sidebar {
-        width: 100%;
-        height: auto;
-        min-height: auto;
-        position: fixed;
-        top: auto;
-        /* 👈 THE CRITICAL FIX: Releases the top anchor */
-        bottom: 0;
-        left: 0;
-        z-index: 999;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        padding: 0.75rem 0.5rem;
-        background: rgba(13, 19, 33, 0.95);
-        border-right: none;
-        border-top: 1px solid var(--border-color);
-        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
-
-        /* Hide Top Brand Info on Mobile */
-        .sidebar-brand,
-        .nav-section-label,
-        .sidebar-footer {
-            display: none;
-        }
-
-        .sidebar-nav {
-            flex-direction: row;
-            justify-content: space-around;
-            width: 100%;
-            gap: 0;
-
-            .nav-link {
-                flex-direction: column;
-                gap: 0.3rem;
-                padding: 0.5rem;
-                border-radius: 8px;
-                border: none;
-                background: transparent;
-                box-shadow: none;
-                flex: 1;
-                text-align: center;
-
-                span {
-                    font-size: 0.65rem;
-                }
-
-                &.active {
-                    background: transparent;
-                    border-left: none;
-                    color: var(--primary);
-
-                    .link-icon-box {
-                        color: var(--primary);
-                    }
-                }
-            }
-        }
-    }
-}
-
-/* 📱 MOBILE BOTTOM NAVIGATION TRANSFORMATION 📱 */
-@media (max-width: 900px) {
-    .app-sidebar {
-        width: 100%;
         height: auto;
         min-height: auto;
         position: fixed;
@@ -387,14 +264,14 @@
         border-top: 1px solid var(--border-color);
         box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
 
-        /* 1. Hide Top Brand Info and User Profile (But keep footer!) */
+        /* 1. Hide Top Brand Info and User Profile completely */
         .sidebar-brand,
         .nav-section-label,
         .user-profile-preview {
-            display: none;
+            display: none !important;
         }
 
-        /* 2. Nav gets 3 parts of the space (for Dashboard, Profile, Analytics) */
+        /* 2. Format the 3 Nav Links */
         .sidebar-nav {
             flex-direction: row;
             justify-content: space-around;
@@ -429,13 +306,14 @@
             }
         }
 
-        /* 3. Footer gets 1 part of the space (for Logout), perfectly balancing the 4 tabs */
+        /* 3. Format the Logout Button to look exactly like a 4th tab */
         .sidebar-footer {
             margin-top: 0;
             padding-top: 0;
             border-top: none;
             flex: 1;
             display: flex;
+            justify-content: center;
 
             .sidebar-logout-btn {
                 flex-direction: column;
