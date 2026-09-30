@@ -10,8 +10,6 @@ const Auth = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-
-    // 👇 NEW: State to toggle password visibility
     const [showPassword, setShowPassword] = useState(false);
 
     const { login } = useAuth();
@@ -53,7 +51,6 @@ const Auth = () => {
             const { token, ...userData } = response.data;
             login(userData, token);
             navigate('/dashboard');
-
         } catch (err) {
             setError(err.response?.data?.message || 'Authentication failed. Please try again.');
         } finally {
@@ -62,40 +59,40 @@ const Auth = () => {
     };
 
     return (
-        <div className="auth-container">
+        <main className="auth-container"> {/* 👇 SEMANTIC FIX: Changed div to main */}
             <div className="auth-card">
-                {/* Brand Badge */}
                 <div className="auth-brand">
                     <div className="brand-badge-box">
-                        <Dumbbell size={28} className="dumbbell-logo" />
+                        <Dumbbell size={28} className="dumbbell-logo" aria-hidden="true" />
                     </div>
                     <h2>FitTrack <span className="pro-pill">PRO</span></h2>
                     <div className="motto-badge">
-                        <Flame size={13} className="flame-icon" />
+                        <Flame size={13} className="flame-icon" aria-hidden="true" />
                         <span>LIGHT WEIGHT BABY</span>
                     </div>
                 </div>
 
-                <div className="auth-header">
+                <header className="auth-header">
                     <h1>{isLogin ? 'Athlete Login' : 'Join The Sanctuary'}</h1>
                     <p>{isLogin ? 'Enter your credentials to access your workout archives.' : 'Begin your journey to ultimate strength today.'}</p>
-                </div>
+                </header>
 
                 {error && (
-                    <div className="error-message">
-                        <AlertCircle size={18} />
+                    <div className="error-message" role="alert">
+                        <AlertCircle size={18} aria-hidden="true" />
                         <span>{error}</span>
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="auth-form">
+                <form onSubmit={handleSubmit} className="auth-form" noValidate>
                     {!isLogin && (
                         <div className="input-group">
-                            <UserIcon className="input-icon" size={19} />
+                            <UserIcon className="input-icon" size={19} aria-hidden="true" />
                             <input
                                 type="text"
                                 name="name"
                                 placeholder="Full Name / Athlete Handle"
+                                aria-label="Full Name"
                                 value={formData.name}
                                 onChange={handleChange}
                                 required={!isLogin}
@@ -104,72 +101,92 @@ const Auth = () => {
                     )}
 
                     <div className="input-group">
-                        <Mail className="input-icon" size={19} />
+                        <Mail className="input-icon" size={19} aria-hidden="true" />
                         <input
                             type="email"
                             name="email"
                             placeholder="Email Address"
+                            aria-label="Email Address"
                             value={formData.email}
                             onChange={handleChange}
                             required
                         />
                     </div>
 
-                    {/* 👇 UPGRADED: Password Input with Eye Toggle 👇 */}
                     <div className="input-group" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                        <Lock className="input-icon" size={19} />
+                        <Lock className="input-icon" size={19} aria-hidden="true" />
                         <input
                             type={showPassword ? "text" : "password"}
                             name="password"
                             placeholder="Password (min 6 chars, 1 letter + 1 number)"
+                            aria-label="Password"
                             value={formData.password}
                             onChange={handleChange}
                             required
-                            style={{ paddingRight: '2.8rem' }} /* Prevents text from hiding under the icon */
+                            style={{ paddingRight: '3rem' }}
                         />
+                        {/* 👇 A11Y FIX: Added aria-label & minimum 44px touch target 👇 */}
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
+                            aria-label={showPassword ? "Hide password" : "Show password"}
+                            title={showPassword ? "Hide password" : "Show password"}
                             style={{
                                 position: 'absolute',
-                                right: '1rem',
+                                right: '0.5rem',
                                 background: 'none',
                                 border: 'none',
                                 color: 'var(--text-dim, #64748b)',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
-                                padding: '0',
+                                justifyContent: 'center',
+                                padding: '10px',
+                                minWidth: '44px',
+                                minHeight: '44px',
                                 transition: 'color 0.2s ease'
                             }}
                             onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-main, #fff)'}
                             onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-dim, #64748b)'}
                         >
-                            {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
+                            {showPassword ? <EyeOff size={19} aria-hidden="true" /> : <Eye size={19} aria-hidden="true" />}
                         </button>
                     </div>
 
                     <button type="submit" className="submit-btn" disabled={loading}>
                         {loading ? 'Entering Iron Sanctuary...' : (isLogin ? 'Sign In to Dashboard' : 'Create Athlete Account')}
-                        {!loading && <ArrowRight size={19} />}
+                        {!loading && <ArrowRight size={19} aria-hidden="true" />}
                     </button>
                 </form>
 
-                <div className="auth-footer">
+                <footer className="auth-footer">
                     <p>
                         {isLogin ? "New to FitTrack? " : "Already an athlete? "}
-                        <span onClick={() => {
-                            setIsLogin(!isLogin);
-                            setError('');
-                            setFormData({ name: '', email: '', password: '' });
-                            setShowPassword(false); // Reset visibility when switching tabs
-                        }}>
+                        <button
+                            type="button"
+                            className="text-link-btn"
+                            onClick={() => {
+                                setIsLogin(!isLogin);
+                                setError('');
+                                setFormData({ name: '', email: '', password: '' });
+                                setShowPassword(false);
+                            }}
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                padding: 0,
+                                color: 'var(--primary)',
+                                cursor: 'pointer',
+                                font: 'inherit',
+                                textDecoration: 'underline'
+                            }}
+                        >
                             {isLogin ? 'Register now' : 'Sign in here'}
-                        </span>
+                        </button>
                     </p>
-                </div>
+                </footer>
             </div>
-        </div>
+        </main>
     );
 };
 
