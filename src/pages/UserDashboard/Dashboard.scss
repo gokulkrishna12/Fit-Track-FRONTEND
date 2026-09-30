@@ -5,7 +5,6 @@
     color: var(--text-main);
     position: relative;
 
-    /* Mobile-kku layout-a thalaikela (column-ah) maathum code */
     @media (max-width: 900px) {
         flex-direction: column;
     }
@@ -18,6 +17,11 @@
         overflow-y: auto;
         position: relative;
         z-index: 1;
+
+        @media (max-width: 900px) {
+            padding-bottom: 80px;
+            /* Crucial: Prevents content from hiding behind mobile bottom nav */
+        }
 
         .dashboard-header {
             display: flex;
@@ -32,7 +36,9 @@
             flex-wrap: wrap;
 
             @media (max-width: 900px) {
-                padding: 1.5rem;
+                padding: 1.5rem 1rem;
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             .header-greeting {
@@ -49,10 +55,6 @@
                     padding: 0.2rem 0.6rem;
                     border-radius: var(--radius-full);
                     margin-bottom: 0.5rem;
-
-                    .tag-sparkle {
-                        color: #38BDF8;
-                    }
                 }
 
                 h1 {
@@ -61,6 +63,10 @@
                     letter-spacing: -0.5px;
                     color: #FFFFFF;
                     margin-bottom: 0.35rem;
+
+                    @media (max-width: 600px) {
+                        font-size: 1.5rem;
+                    }
 
                     .highlight-name {
                         background: linear-gradient(135deg, #6366F1 0%, #38BDF8 100%);
@@ -84,6 +90,11 @@
                 border: 1px solid rgba(245, 158, 11, 0.3);
                 border-radius: var(--radius);
                 box-shadow: 0 0 15px rgba(245, 158, 11, 0.12);
+
+                @media (max-width: 900px) {
+                    width: 100%;
+                    /* Stretch on mobile */
+                }
 
                 .flame-icon {
                     color: #EF4444;

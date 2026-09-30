@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User as UserIcon, ArrowRight, AlertCircle, Dumbbell, Flame } from 'lucide-react';
+import { Mail, Lock, User as UserIcon, ArrowRight, AlertCircle, Dumbbell, Flame, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import API from '../../service/api';
@@ -10,6 +10,9 @@ const Auth = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    // 👇 NEW: State to toggle password visibility
+    const [showPassword, setShowPassword] = useState(false);
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -112,16 +115,38 @@ const Auth = () => {
                         />
                     </div>
 
-                    <div className="input-group">
+                    {/* 👇 UPGRADED: Password Input with Eye Toggle 👇 */}
+                    <div className="input-group" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                         <Lock className="input-icon" size={19} />
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             placeholder="Password (min 6 chars, 1 letter + 1 number)"
                             value={formData.password}
                             onChange={handleChange}
                             required
+                            style={{ paddingRight: '2.8rem' }} /* Prevents text from hiding under the icon */
                         />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{
+                                position: 'absolute',
+                                right: '1rem',
+                                background: 'none',
+                                border: 'none',
+                                color: 'var(--text-dim, #64748b)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '0',
+                                transition: 'color 0.2s ease'
+                            }}
+                            onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-main, #fff)'}
+                            onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-dim, #64748b)'}
+                        >
+                            {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
+                        </button>
                     </div>
 
                     <button type="submit" className="submit-btn" disabled={loading}>
@@ -133,7 +158,12 @@ const Auth = () => {
                 <div className="auth-footer">
                     <p>
                         {isLogin ? "New to FitTrack? " : "Already an athlete? "}
-                        <span onClick={() => { setIsLogin(!isLogin); setError(''); setFormData({ name: '', email: '', password: '' }); }}>
+                        <span onClick={() => {
+                            setIsLogin(!isLogin);
+                            setError('');
+                            setFormData({ name: '', email: '', password: '' });
+                            setShowPassword(false); // Reset visibility when switching tabs
+                        }}>
                             {isLogin ? 'Register now' : 'Sign in here'}
                         </span>
                     </p>

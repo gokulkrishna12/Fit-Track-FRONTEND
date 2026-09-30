@@ -67,6 +67,10 @@
         align-items: center;
         gap: 1rem;
 
+        @media (max-width: 600px) {
+            padding: 2.5rem 1rem;
+        }
+
         h3 {
             font-size: 1.25rem;
             color: var(--text-main);
@@ -102,11 +106,23 @@
         background: rgba(239, 68, 68, 0.08);
     }
 
+    /* 📱 PERFECT MOBILE GRID WRAPPING 📱 */
     .workout-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 1.5rem;
         width: 100%;
+
+        @media (max-width: 768px) {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            /* slightly smaller on tablets */
+            gap: 1rem;
+        }
+
+        @media (max-width: 500px) {
+            grid-template-columns: 1fr;
+            /* Exact single column stack on small phones */
+        }
 
         .workout-card {
             background-color: var(--bg-surface);
@@ -120,6 +136,11 @@
             box-sizing: border-box;
             transition: transform 0.2s ease, border-color 0.2s ease;
 
+            @media (max-width: 600px) {
+                padding: 1.15rem;
+                gap: 1rem;
+            }
+
             &:hover {
                 transform: translateY(-2px);
                 border-color: rgba(99, 102, 241, 0.4);
@@ -129,7 +150,6 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
-                /* Keeps buttons cleanly at the top right */
                 width: 100%;
 
                 .exercise-title {
@@ -185,70 +205,6 @@
                 }
             }
 
-            /* Edit Form inside Card */
-            .edit-form-container {
-                display: flex;
-                flex-direction: column;
-                gap: 0.75rem;
-
-                .edit-title {
-                    font-size: 1rem;
-                    font-weight: 700;
-                    color: #fff;
-                    margin: 0;
-                }
-
-                .edit-input {
-                    background: var(--bg-main);
-                    border: 1px solid var(--border-color);
-                    border-radius: 6px;
-                    padding: 0.6rem;
-                    color: var(--text-main);
-                    width: 100%;
-                    box-sizing: border-box;
-
-                    &:focus {
-                        border-color: var(--primary);
-                        outline: none;
-                    }
-                }
-
-                .edit-row-inputs {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 0.5rem;
-                }
-
-                .edit-actions {
-                    display: flex;
-                    gap: 0.5rem;
-                    margin-top: 0.25rem;
-
-                    button {
-                        flex: 1;
-                        padding: 0.5rem;
-                        border-radius: 6px;
-                        font-weight: 600;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 0.35rem;
-                        cursor: pointer;
-                        border: none;
-                    }
-
-                    .save-btn {
-                        background: var(--primary);
-                        color: #fff;
-                    }
-
-                    .cancel-btn {
-                        background: rgba(239, 68, 68, 0.15);
-                        color: #EF4444;
-                    }
-                }
-            }
-
             .card-body {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -257,6 +213,10 @@
                 padding: 0.875rem;
                 border-radius: 8px;
                 border: 1px solid var(--border-color);
+
+                @media (max-width: 350px) {
+                    padding: 0.5rem;
+                }
 
                 .stat-badge {
                     display: flex;
@@ -277,6 +237,10 @@
                         font-size: 0.98rem;
                         font-weight: 700;
                         color: var(--text-main);
+
+                        @media (max-width: 350px) {
+                            font-size: 0.85rem;
+                        }
                     }
 
                     .highlight {
@@ -309,24 +273,6 @@
                 .footer-volume {
                     color: var(--accent-gold);
                     font-weight: 500;
-                }
-            }
-        }
-    }
-
-    /* Mobile Compact Optimizations */
-    @media (max-width: 600px) {
-        .workout-grid {
-            grid-template-columns: 1fr;
-            /* 1 column on small screens */
-            gap: 1rem;
-
-            .workout-card {
-                padding: 1.25rem;
-                /* Slightly less padding */
-
-                .card-body {
-                    padding: 0.75rem;
                 }
             }
         }
