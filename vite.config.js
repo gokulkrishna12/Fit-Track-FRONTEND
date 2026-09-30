@@ -9,26 +9,15 @@ export default defineConfig({
     setupFiles: './src/setupTests.js',
     css: true,
   },
-  // 👇 PERFORMANCE FIX: Function-based manual chunking 👇
   build: {
+    // 👇 PERFORMANCE FIX: Let Vite natively chunk based on React.lazy() 👇
+    cssCodeSplit: true, // Splits CSS so the Login page doesn't load Dashboard CSS
+    modulePreload: {
+      polyfill: false, // Disables unnecessary polyfills on modern browsers
+    },
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('lucide-react')) {
-              return 'icons';
-            }
-            if (id.includes('recharts') || id.includes('d3')) {
-              return 'charts';
-            }
-            if (id.includes('redux')) {
-              return 'redux';
-            }
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-              return 'vendor';
-            }
-          }
-        }
+        // Removed the bulky manualChunks function to restore native Tree-Shaking
       }
     }
   }
