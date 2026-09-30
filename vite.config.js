@@ -10,25 +10,17 @@ export default defineConfig({
     css: true,
   },
   esbuild: {
-    drop: ['console', 'debugger'], // Strips out logs for smaller KB
+    drop: ['console', 'debugger'], // Keeps the JS bundle ultra-light
   },
   build: {
     target: 'esnext',
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 600,
+    // 👇 THE CRITICAL FIX: Stops Vite from downloading charts on the login page 👇
+    modulePreload: false,
     rollupOptions: {
       output: {
-        // 👇 NUCLEAR CHUNKING: Forces HTTP/2 parallel downloading 👇
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('socket.io')) return 'vendor-socket';
-            if (id.includes('@reduxjs') || id.includes('react-redux')) return 'vendor-redux';
-            if (id.includes('recharts') || id.includes('d3')) return 'vendor-charts';
-            if (id.includes('lucide-react')) return 'vendor-icons';
-            if (id.includes('react/') || id.includes('react-dom/') || id.includes('react-router')) return 'vendor-react';
-            return 'vendor-core';
-          }
-        }
+        // We leave this empty! Let React.lazy() naturally handle the code splitting.
+        manualChunks: undefined
       }
     }
   }
