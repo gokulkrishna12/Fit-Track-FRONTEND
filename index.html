@@ -10,9 +10,10 @@
   <title>FitTrack | Ultra-Premium Fitness Tracker</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- 👇 NETWORK FIX: Preconnect to your Render backend to speed up API calls 👇 -->
-  <link rel="preconnect" href="https://fit-track-backend-02ef.onrender.com" crossorigin>
+  <!-- 👇 PERFORMANCE LCP FIX: Force instant background download 👇 -->
+  <link rel="preload" as="image" href="/ronnie_gym_bg.webp" type="image/webp" fetchpriority="high">
 
+  <link rel="preconnect" href="https://fit-track-backend-02ef.onrender.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"

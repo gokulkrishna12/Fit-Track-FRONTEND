@@ -9,16 +9,15 @@ export default defineConfig({
     setupFiles: './src/setupTests.js',
     css: true,
   },
+  // 👇 TURBO CHARGE JS BUNDLE 👇
+  esbuild: {
+    drop: ['console', 'debugger'], // Strips all console.logs in production to save KB
+  },
   build: {
-    // 👇 PERFORMANCE FIX: Let Vite natively chunk based on React.lazy() 👇
-    cssCodeSplit: true, // Splits CSS so the Login page doesn't load Dashboard CSS
+    target: 'esnext', // Builds only for modern browsers, removing heavy legacy polyfills
+    cssCodeSplit: true,
     modulePreload: {
-      polyfill: false, // Disables unnecessary polyfills on modern browsers
-    },
-    rollupOptions: {
-      output: {
-        // Removed the bulky manualChunks function to restore native Tree-Shaking
-      }
+      polyfill: false,
     }
   }
 });
