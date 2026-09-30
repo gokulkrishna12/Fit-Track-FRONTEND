@@ -9,15 +9,29 @@ export default defineConfig({
     setupFiles: './src/setupTests.js',
     css: true,
   },
-  // 👇 TURBO CHARGE JS BUNDLE 👇
   esbuild: {
-    drop: ['console', 'debugger'], // Strips all console.logs in production to save KB
+    drop: ['console', 'debugger'],
   },
   build: {
-    target: 'esnext', // Builds only for modern browsers, removing heavy legacy polyfills
+    target: 'esnext',
     cssCodeSplit: true,
-    modulePreload: {
-      polyfill: false,
+    rollupOptions: {
+      output: {
+        // 👇 PERFORMANCE FIX: Surgical chunking to unblock the main thread 👇
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            // Split out the icons
+            if (id.includes('lucide-react')) {
+              return 'icons';
+            }
+            // Split out core React dependencies
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'vendor';
+            }
+            // Note: We leave recharts and redux alone so Vite dynamically imports them only when needed!
+          }
+        }
+      }
     }
   }
 });

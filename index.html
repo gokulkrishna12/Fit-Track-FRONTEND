@@ -10,7 +10,19 @@
   <title>FitTrack | Ultra-Premium Fitness Tracker</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- 👇 PERFORMANCE LCP FIX: Force instant background download 👇 -->
+  <!-- 👇 PERFORMANCE FIX: Instant First Contentful Paint (FCP) 👇 -->
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #080C14;
+      width: 100%;
+      height: 100vh;
+    }
+  </style>
+
+  <!-- LCP Fix: Force instant background download -->
   <link rel="preload" as="image" href="/ronnie_gym_bg.webp" type="image/webp" fetchpriority="high">
 
   <link rel="dns-prefetch" href="https://fit-track-backend-02ef.onrender.com">
